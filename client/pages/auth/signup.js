@@ -1,7 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 
-import { useRequest } from "../../hooks/use-request";
+import useRequest from "../../hooks/use-request";
 
 export default () => {
   const [email, setEmail] = useState("");
