@@ -1,9 +1,16 @@
-import React from 'react'
+import axios from 'axios';
 
-const index = () => {
-  return (
-    <div>index</div>
-  )
-}
+const LandingPage = ({ currentUser }) => {
+  console.log(currentUser)
+  const response = await axios.get("/api/users/currentuser");
 
-export default index
+  return <h1>Landing Page</h1>
+};
+
+// LandingPage.getInitialProps = async () => {
+//   const response = await axios.get('/api/users/currentuser');
+
+//   return response.data;
+// };
+
+export default LandingPage;
