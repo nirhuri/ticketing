@@ -17,7 +17,6 @@ stan.on("connect", () => {
     process.exit();
   });
 
-    console.log("Init")
   new TicketCreatedListener(stan).listen();
 });
 
