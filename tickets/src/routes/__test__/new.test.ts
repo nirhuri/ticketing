@@ -1,6 +1,7 @@
 import request from "supertest";
 import { app } from "../../app";
-import { Ticket } from '../../models/ticket';
+import { Ticket } from "../../models/ticket";
+import { natsWrapper } from "../../nats-wrapper";
 
 it("has a route handler listening to /api/tickets for post request", async () => {
   const response = await request(app).post("/api/tickets").send({});
@@ -44,36 +45,50 @@ it("returns an error if an invalid title is provided", async () => {
 });
 
 it("returns an error if an invalid price is provided", async () => {
-      await request(app)
-        .post("/api/tickets")
-        .set("Cookie", global.signin())
-        .send({
-          title: "title",
-          price: -10,
-        })
-          .expect(400);
-    
-      await request(app)
-        .post("/api/tickets")
-        .set("Cookie", global.signin())
-        .send({
-          title: "title",
-        })
-        .expect(400);
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({
+      title: "title",
+      price: -10,
+    })
+    .expect(400);
+
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({
+      title: "title",
+    })
+    .expect(400);
 });
 
 it("its read a ticket with valid input", async () => {
-    let ticket = await Ticket.find({});
-    expect(ticket.length).toEqual(0);
+  let ticket = await Ticket.find({});
+  expect(ticket.length).toEqual(0);
 
-    await request(app)
-        .post('/api/tickets')
-        .set('Cookie', global.signin())
-        .send({
-            title: 'fwefwef',
-            price: 20
-        }).expect(201);
-    
-    ticket = await Ticket.find({});
-    expect(ticket.length).toEqual(1);
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({
+      title: "fwefwef",
+      price: 20,
+    })
+    .expect(201);
+
+  ticket = await Ticket.find({});
+  expect(ticket.length).toEqual(1);
+});
+
+it("publishes an event", async () => {
+  await request(app)
+    .post("/api/tickets")
+    .set("Cookie", global.signin())
+    .send({
+      title: "fwefwef",
+      price: 20,
+    })
+    .expect(201);
+
+  expect(natsWrapper.client.publish).toHaveBeenCalled();
 });
