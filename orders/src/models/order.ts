@@ -3,10 +3,12 @@ import { OrderStatus } from '@nhtickets2/common';
 
 import { TicketDoc } from './ticket';
 
+export { OrderStatus };
+
 interface OrderAttrs {
     userId: string;
     status: OrderStatus;
-    expiresAr: Date;
+    expiresAt: Date;
     ticket: TicketDoc;
 }
 
