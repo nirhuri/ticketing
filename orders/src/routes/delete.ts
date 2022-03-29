@@ -3,7 +3,7 @@ import {
   requireAuth,
   NotFoundError,
   NotAuthorizedError,
-} from "@nhtickets2/common";
+} from '@nhtickets2/common';
 import { Order, OrderStatus } from '../models/order';
 
 const router = express.Router();
