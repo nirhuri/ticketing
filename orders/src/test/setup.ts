@@ -31,7 +31,7 @@ beforeEach(async () => {
 afterAll(async () => {
   await mongo.stop();
   await mongoose.connection.close();
-});
+}, 60 * 1000);
 
 global.signin = () => {
   const payload = {
