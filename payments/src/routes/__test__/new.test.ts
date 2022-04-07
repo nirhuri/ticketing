@@ -7,7 +7,7 @@ import { stripe } from "../../stripe";
 
 jest.mock("../../stripe");
 
-it("returns a 404 when purchasing an order that does not exist", async () => {
+xit("returns a 404 when purchasing an order that does not exist", async () => {
   await request(app)
     .post("/api/payments")
     .set("Cookie", global.signin())
@@ -18,7 +18,7 @@ it("returns a 404 when purchasing an order that does not exist", async () => {
     .expect(404);
 });
 
-it("returns a 401 when purchasing an order that doesnt belong to the user", async () => {
+xit("returns a 401 when purchasing an order that doesnt belong to the user", async () => {
   const order = Order.build({
     id: new mongoose.Types.ObjectId().toHexString(),
     userId: new mongoose.Types.ObjectId().toHexString(),
@@ -39,7 +39,7 @@ it("returns a 401 when purchasing an order that doesnt belong to the user", asyn
     .expect(401);
 });
 
-it("returns a 400 when purchasing a cancelled order", async () => {
+xit("returns a 400 when purchasing a cancelled order", async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
 
   const order = Order.build({
@@ -62,7 +62,7 @@ it("returns a 400 when purchasing a cancelled order", async () => {
     .expect(400);
 });
 
-it("returns a 201 with valid inputs", async () => {
+xit("returns a 201 with valid inputs", async () => {
   const userId = new mongoose.Types.ObjectId().toHexString();
 
   const order = Order.build({

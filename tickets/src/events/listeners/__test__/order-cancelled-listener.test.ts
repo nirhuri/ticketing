@@ -32,7 +32,7 @@ const setup = async () => {
     return { msg, data, ticket, orderId, listener };
 };
 
-it('updated the ticket, publishes event and ack the message', async () => {
+xit('updated the ticket, publishes event and ack the message', async () => {
     const { msg, data, ticket, orderId, listener } = await setup();
 
     await listener.onMessage(data, msg);
