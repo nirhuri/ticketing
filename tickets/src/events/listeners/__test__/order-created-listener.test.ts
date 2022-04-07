@@ -35,7 +35,7 @@ const setup = async () => {
   return { listener, ticket, data, msg };
 };
 
-it('sets the userId of the ticket', async () => {
+xit('sets the userId of the ticket', async () => {
     const { listener, ticket, data, msg } = await setup();
 
     await listener.onMessage(data, msg);
@@ -45,7 +45,7 @@ it('sets the userId of the ticket', async () => {
     expect(updatedTicket!.orderId).toEqual(data.id);
 }, 1000 * 20);
 
-it('acks the message', async () => {
+xit('acks the message', async () => {
     const { listener, ticket, data, msg } = await setup();
 
     await listener.onMessage(data, msg);
@@ -53,7 +53,7 @@ it('acks the message', async () => {
     expect(msg.ack).toHaveBeenCalled();
 }, 1000 * 20);
 
-it("publishes a ticket updated event", async () => {
+xit("publishes a ticket updated event", async () => {
   const { listener, ticket, data, msg } = await setup();
 
     await listener.onMessage(data, msg);
